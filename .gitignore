@@ -9,7 +9,8 @@
 *.zip
 *.png
 *.exe
-*.db
+Thumbs.db
+*.tga
 *.wav
 *.wmv
 *.mp4
