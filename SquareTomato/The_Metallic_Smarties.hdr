@@ -1,0 +1,5 @@
+#?RADIANCE
+SOFTWARE= MegaPOV 1.2.1/ based on Pov-RAY 3.6.1
+FORMAT=32-bit_rle_rgbe
+
+-Y 720 +X 1280
