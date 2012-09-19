@@ -1,0 +1,218 @@
+// fighter.inc
+//
+// This file contains all the objects and textures that make up the fighter
+//
+// Written by: Henry Wagner
+
+#version unofficial megapov 1.1;
+#declare RsA = seed(574647);
+
+declare Metal_Plates = texture {
+   pigment {
+      image_map { gif "cruiser1.gif" }
+      scale 1000
+   }
+   normal {
+      bump_map {
+         gif "cruiser1.gif"
+         bump_size 3.0
+      }
+      scale 1000
+   }
+   finish {
+      ambient 0.35
+      brilliance 3
+      diffuse 0.3
+      metallic
+      specular 0.80
+      roughness 1/20
+      reflection 0.01
+   }
+}
+
+#declare Hull = union {   
+   // This is the main hull of the fighter
+   cylinder {
+      < -500, 0, 0 >,
+      <  500, 0, 0 >,
+      400.0
+      scale < 1, 0.50, 1 >
+      texture { Metal_Plates rotate< 90, 0, 0 > }
+   }
+   // This is the end cap for the main hull
+   cylinder {
+      < -505, 0, 0 >,
+      < -500, 0, 0 >,
+      400.0
+      scale < 1, 0.50, 1 >
+      texture { Metal_Plates }
+   }
+   // These are the four engines
+   cylinder {
+      < -550, 150, 300 >,
+      <    0, 150, 300 >,
+      150.0
+      texture { Metal_Plates rotate< 90, 0, 0 > }
+   }
+   sphere {
+      < 0, 150, 300 >, 150.0
+      texture{ Metal_Plates }
+   }
+   cylinder {
+     < -550, 150, -300 >,
+     <    0, 150, -300 >,
+     150.0     
+     texture { Metal_Plates rotate< 90, 0, 0 > }
+   }
+   sphere {
+      < 0, 150, -300 >, 150.0
+      texture { Metal_Plates }
+   }
+   cylinder {
+      < -550, -150, -300 >,
+      <    0, -150, -300 >,
+      150.0
+      texture { Metal_Plates rotate< 90, 0, 0 > }
+   }
+   sphere {
+      < 0, -150, -300 >, 150.0
+      texture { Metal_Plates }
+   }
+   cylinder {
+      < -550, -150, 300 >,
+      <    0, -150, 300 >,
+      150.0
+      texture { Metal_Plates rotate< 90, 0, 0 > }
+   }
+   sphere {
+      < 0, -150, 300 >, 150.0
+      texture { Metal_Plates }
+   }
+   // This is the front cone
+   cone {
+      <  500, 0, 0 >, 400.0
+      < 1000, 0, 0 >, 0.0
+      scale< 1, 0.50, 1 >
+      texture { Metal_Plates }
+   }
+   // This is the right wing
+   cone {
+      < -250, 0,     0 >, 250.0
+      < -250, 0, -1500 >,  10.0
+      scale< 1, 0.40, 1 >
+      texture { Metal_Plates rotate< 90, 0, 0 > }
+   }
+   // This is the left wing
+   cone {
+      < -250, 0,    0 >, 250.0
+      < -250, 0, 1500 >,  10.0
+      scale< 1, 0.40, 1 >
+      texture { Metal_Plates rotate< 90, 0, 0 > }
+   }
+   // This is the top wing
+   cone {
+      < -250,   0, 0 >, 250.0
+      < -250, 500, 0 >, 10.0
+      scale< 1, 1, 0.40 >
+      texture { Metal_Plates rotate< 0, 90, 0 > }
+   }
+   sphere {
+      < 450, 20, 0 >, 250.0
+      texture { Green_Glass }
+   }
+}
+
+#declare Ship =
+union {
+   difference {
+      object { Hull }
+      merge {
+         // These are the cutouts for the engines
+         cylinder {
+            < -551, 150, 300 >,
+            <  -50, 150, 300 >,
+            135.0
+         }
+         cylinder {
+            < -551, 150, -300 >,
+            <  -50, 150, -300 >,
+            135.0
+         }
+         cylinder {
+            < -551, -150, 300 >,
+            <  -50, -150, 300 >,
+            135.0
+         }
+         cylinder {
+            < -551, -150, -300 >,
+            <  -50, -150, -300 >,
+            135.0
+         }
+         // These are the cutouts for the laser guns
+         cylinder {
+            <  450, 20, -200 >,
+            < 1000, 20, -200 >,
+            40.0
+         }
+         cylinder {
+            <  450, 20, 200 >,
+            < 1000, 20, 200 >,
+            40.0
+         }
+         texture{ T_Gold_3B }
+      }
+   }
+   // Original value
+   //#declare lightX = -495;
+   #declare lightX = -150;
+   #declare lightPower = 10;
+   
+   light_source {
+      < lightX, 150, 300 >
+      color Blue
+      glow { size rand(RsA)*lightPower type int(rand(RsA))}
+      fade_distance 3 fade_power 1
+      /*
+      spotlight
+      point_at < -50, 300, 300 >
+      radius 75
+      falloff 90
+      */
+   }
+   light_source {
+      < lightX, -150, 300 >
+      color Blue
+      glow { size rand(RsA)*lightPower type int(rand(RsA))}
+      fade_distance 3 fade_power 1
+      /*
+      spotlight
+      point_at < -50, -300, 300 >
+      radius 75
+      falloff 90
+      */
+   }
+   light_source {
+      < lightX, -150, -300 >
+      color Blue
+      glow { size rand(RsA)*lightPower type int(rand(RsA))}
+      fade_distance 3 fade_power 1
+      /*
+      spotlight
+      point_at < -50, -300, -300 >
+      radius 75
+      falloff 90
+      */
+   }
+   light_source {
+      < lightX, 150, -300 >
+      color Blue
+      glow { size rand(RsA)*lightPower type int(rand(RsA))}
+      fade_distance 3 fade_power 1
+      /*
+      spotlight
+      point_at < -50, 300, -300 >
+      radius 75
+      falloff 90
+      */
+   }
+}

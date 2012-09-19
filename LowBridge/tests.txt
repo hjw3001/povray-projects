@@ -1,0 +1,19 @@
+Mega Radiosity
+
+49.37
+
+No Fog (count 130)
+9.44
+
+Increasing count from 130 to 230
+
+12 something
+
+Increasing brightness from 0.5 to 1 (count = 130)
+
+10.21
+
+Setting count to 230, brightness to 1
+
+15.17
+
